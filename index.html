@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نظام حجوزات القاعات الملكي</title>
+     <style>
+        /* التنسيق الجمالي (CSS) */
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #2b1055, #7597de);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            color: #fff;
+            min-height: 100vh;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 800px;
+            margin: auto;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+            position: relative;
+        }
+        h2 { text-align: center; color: #ffd700; text-shadow: 0 0 10px #ffd700; }
+        .form-group { margin-bottom: 20px; }
+        input, select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid #ffd700;
+            border-radius: 15px;
+            color: white;
+            margin-top: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #ffd700, #ff8c00);
+            border: none;
+            border-radius: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover { transform: scale(1.05); box-shadow: 0 0 20px #ffd700; }
+        table { width: 100%; margin-top: 30px; border-collapse: collapse; }
+        th, td { border: 1px solid rgba(255,255,255,0.2); padding: 10px; text-align: center; }
+        .del-btn { background: #ff4757; color: white; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <h2>✨ نظام إدارة الحجوزات الملكي ✨</h2>
+    
+    <div class="grid-form">
+        <input type="text" id="custName" placeholder="اسم العميل">
+        <select id="hallName">
+            <option>قاعة علياء</option><option>قاعة الإمبراطورة</option><option>قاعة القصر الذهبي</option>
+            <option>قاعة كراون</option><option>قاعة دريم هول</option><option>قاعة مدينة السلام</option>
+            <option>قاعة الفخامة</option><option>قاعة السلطانة</option><option>قاعة الملكة</option>
+            <option>قصر الملكة أروى</option><option>قصر ليالي عدن</option><option>قصر الذيباني</option>
+            <option>قصر العرب</option><option>شيبا بالاس</option><option>مون لايت</option>
+            <option>ليلتي</option><option>بترا كورال</option><option>دايموند بالاس</option>
+        </select>
+        <input type="date" id="resDate">
+        <input type="text" id="eventType" placeholder="المناسبة (زفاف، تخرج...)">
+        <input type="number" id="cost" placeholder="تكلفة الحجز (ريال)">
+        <button onclick="addBooking()">إضافة حجز جديد</button>
+    </div>
+
+    <table>
+        <thead><tr><th>العميل</th><th>القاعة</th><th>التاريخ</th><th>المناسبة</th><th>التكلفة</th><th>تحكم</th></tr></thead>
+        <tbody id="resTable"></tbody>
+    </table>
+</div>
+
+<script>
+    function addBooking() {
+        const name = document.getElementById('custName').value;
+        const hall = document.getElementById('hallName').value;
+        const date = document.getElementById('resDate').value;
+        const event = document.getElementById('eventType').value;
+        const cost = document.getElementById('cost').value;
+        
+        if(!name || !date) { alert("يرجى تعبئة البيانات المطلوبة"); return; }
+        
+        const table = document.getElementById('resTable');
+        const row = table.insertRow();
+        row.innerHTML = `<td>${name}</td><td>${hall}</td><td>${date}</td><td>${event}</td><td>${cost}</td>
+                         <td><button class="del-btn" onclick="this.parentElement.parentElement.remove()">حذف</button></td>`;
+        
+        // مسح الحقول بعد الإضافة
+        document.getElementById('custName').value = '';
+        document.getElementById('eventType').value = '';
+        document.getElementById('cost').value = '';
+    }
+</script>
+
+</body>
+</html>
